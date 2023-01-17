@@ -1,9 +1,9 @@
 const users = [];
 
 // Ingresso utente nella chat
-function userJoin(id, username, room) {
+function userJoin(id, username, room, points) {
 
-    const user = {id, username, room};
+    const user = {id, username, room, points};
     users.push(user);
 
     return user;

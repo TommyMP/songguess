@@ -9,21 +9,21 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server)
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'publicbs')));
 
-const botName = 'ChatCord Bot';
+const botName = 'GuessTheSong Bot';
 
 // Connessione di un client
 io.on('connection', socket => {
 
     // Ingresso nella stanza
     socket.on('joinRoom', ({username, room}) => {
-        const user = userJoin(socket.id, username, room);
+        const user = userJoin(socket.id, username, room, 0);
 
         socket.join(user.room);
 
         // Invia il benvenuto all'utente che si è connesso
-        socket.emit('message', formatMessage(botName, 'Welcome to SongGuess!')); 
+        socket.emit('message', formatMessage(botName, 'Welcome to GuessTheSong!')); 
 
         // Comunica a tutti tranne che all'utente che si è connesso
         socket.broadcast
