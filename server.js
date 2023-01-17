@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server)
 
-app.use(express.static(path.join(__dirname, 'publicbs')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const botName = 'GuessTheSong Bot';
 

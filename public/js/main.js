@@ -48,10 +48,20 @@ chatForm.addEventListener('submit', (e)=> {
 function outputMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
-    <p class="text">
-        ${message.text}
-    </p>`;
+    // div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
+    // <p class="text">
+    //     ${message.text}
+    // </p>`;
+
+    div.innerHTML = `<div class="card border-dark mb-3">
+    <div class="card-header">
+        <h5 class="card-title ">${message.username}</h5>
+        <h6 class="card-subtitle text-muted ">${message.time}</h6>
+    </div>
+    <div class="card-body text-dark">
+        <p class="card-text">${message.text}</p>
+    </div>
+</div>`;
 
     chatMessages.appendChild(div);
 }
@@ -64,5 +74,14 @@ function outputRoomName(room) {
 // Caricamento lista utenti nel DOM
 function outputUsers(users) {
     userList.innerHTML = `
-        ${users.map(user => `<li>${user.username}</li>`).join('')}`
+    <tbody>
+        ${users.map((user,index) => `
+            <tr>
+                <th scope="row">${index+1}</th>
+                <td colspan="3">${user.username}</td>
+                <td>${user.points}</td>
+            </tr>`
+            ).join('')}
+    </tbody>`
+        //${users.map(user => `<li>${user.username}</li>`).join('')}`
 }
