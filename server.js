@@ -18,7 +18,8 @@ io.on('connection', socket => {
 
     // Ingresso nella stanza
     socket.on('joinRoom', ({username, room}) => {
-        const user = userJoin(socket.id, username, room, 0);
+        
+        const user = userJoin(socket.id, username, room, 0.0);
 
         socket.join(user.room);
 
