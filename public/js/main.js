@@ -2,11 +2,13 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
+const playlistName = document.getElementById('playlist-name');
 
 // get username e stanza dall'url
 const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 });
+
 
 const socket = io();
 
@@ -18,6 +20,16 @@ socket.on('roomUsers', ({room, users}) => {
     outputRoomName(room);
     outputUsers(users);
 });
+
+// Nome playlist
+socket.on('playlist', message => {
+    outputPlaylist(message);
+});
+
+// Audio
+socket.on('songpreview', url => {
+    playSound(url);
+})
 
 // Messaggio dal server
 socket.on('message', message => {
@@ -36,8 +48,19 @@ chatForm.addEventListener('submit', (e)=> {
 
     const msg = e.target.elements.msg.value;
 
-    // invio del messaggio al server
-    socket.emit('chatMessage', msg);
+    // invio comando
+    if(Array.from(msg)[0] === '/')
+    {
+        splitmsg = msg.split(' ');
+        command = splitmsg[0].replace('/', '');
+        args = splitmsg.slice(1);
+
+        socket.emit('chatCommand', {command, args})
+    }
+    else {
+        // invio del messaggio al server
+        socket.emit('chatMessage', msg);
+    }
 
     // pulizia input e focus
     e.target.elements.msg.value = '';
@@ -84,4 +107,13 @@ function outputUsers(users) {
             ).join('')}
     </tbody>`
         //${users.map(user => `<li>${user.username}</li>`).join('')}`
+}
+
+function outputPlaylist(name) {
+    playlistName.innerHTML = name;
+}
+
+function playSound(url) {
+    var a = new Audio(url);
+    a.play();
 }
