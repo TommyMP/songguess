@@ -3,6 +3,10 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const playlistName = document.getElementById('playlist-name');
+const roundsN = document.getElementById('rounds-display');
+const roundN = document.getElementById('round-display');
+
+let a;
 
 // get username e stanza dall'url
 const { username, room } = Qs.parse(location.search, {
@@ -29,18 +33,41 @@ socket.on('playlist', message => {
 // Audio
 socket.on('songpreview', url => {
     playSound(url);
-})
+});
+
+socket.on('stopSong', () => stopSound());
+
+// Numero turni
+socket.on('turns', turni => {
+    outputTurns(turni);
+});
+
+// turn
+socket.on('turn', turno => {
+    outputTurn(turno);
+});
+
 
 // Messaggio dal server
 socket.on('message', message => {
     console.log(message);
-    outputMessage(message);
+    outputMessage(message, false);
 
     // scroll down
     //chatMessages.scrollTop = chatMessages.scrollHeight;
     //chatMessages.lastElementChild.scrollIntoView();
     chatMessages.scrollTo(0, chatMessages.scrollHeight*1000);
-})
+});
+
+socket.on('messageX', message => {
+    console.log(message);
+    outputMessage(message, true);
+
+    // scroll down
+    //chatMessages.scrollTop = chatMessages.scrollHeight;
+    //chatMessages.lastElementChild.scrollIntoView();
+    chatMessages.scrollTo(0, chatMessages.scrollHeight*1000);
+});
 
 // Invio (submit) del messaggio
 chatForm.addEventListener('submit', (e)=> {
@@ -68,7 +95,7 @@ chatForm.addEventListener('submit', (e)=> {
 });
 
 // Output del messaggio nel DOM
-function outputMessage(message) {
+function outputMessage(message, success) {
     const div = document.createElement('div');
     div.classList.add('message');
     // div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
@@ -76,13 +103,22 @@ function outputMessage(message) {
     //     ${message.text}
     // </p>`;
 
-    div.innerHTML = `<div class="card border-dark mb-3">
-    <div class="card-header">
-        <h5 class="card-title ">${message.username}</h5>
-        <h6 class="card-subtitle text-muted ">${message.time}</h6>
+    let color;
+    let background = "";
+    if(success) {
+        color='success';
+        background = ' style="background-color:#bad8c1;"';
+    }
+    else
+        color='dark';
+
+    div.innerHTML = `<div class="card border-${color} mb-3">
+    <div class="card-header"${background}>
+        <h5 class="card-title text-${color}">${message.username}</h5>
+        <h6 class="card-subtitle text-muted">${message.time}</h6>
     </div>
     <div class="card-body text-dark">
-        <p class="card-text">${message.text}</p>
+        <p class="card-text text-${color}">${message.text}</p>
     </div>
 </div>`;
 
@@ -109,11 +145,25 @@ function outputUsers(users) {
         //${users.map(user => `<li>${user.username}</li>`).join('')}`
 }
 
+function outputTurn(turn) {
+    roundN.innerText = turn;
+}
+
+function outputTurns(turns) {
+    roundsN.innerText = turns;
+}
+
 function outputPlaylist(name) {
     playlistName.innerHTML = name;
 }
 
 function playSound(url) {
-    var a = new Audio(url);
+    console.log(url);
+    a = new Audio(url);
     a.play();
+}
+
+function stopSound() {
+    a.pause();
+    a.currentTime = 0;
 }

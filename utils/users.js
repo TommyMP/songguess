@@ -3,8 +3,11 @@ const users = [];
 // Ingresso utente nella chat
 function userJoin(id, username, room, points) {
     let admin = false;
-    if(users.length==0)
+    if(getRoomUsers(room).length==0)
+    {
         admin = true;
+    }
+
     const user = {id, username, room, points, admin};
     users.push(user);
 
@@ -28,12 +31,24 @@ function userLeave(id) {
 
 // Get utenti nella stanza
 function getRoomUsers(room) {
-    return users.filter(user => user.room === room);
+    return users.filter(user => user.room === room).sort(function(a, b) { 
+        return b.points - a.points;});
 }
+
+function resetPoints(room) {
+    users.forEach((user) => {if(user.room === room) user.points = 0;})
+}
+
+function getRoomAdmin(room) {
+    return users.filter(user => users.admin === true);
+}
+
 
 module.exports = {
     userJoin,
     getCurrentUser,
     userLeave,
-    getRoomUsers
+    getRoomUsers,
+    getRoomAdmin,
+    resetPoints
 }
