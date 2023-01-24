@@ -28,8 +28,9 @@ function addRoom(name) {
     let titleGuessed = 1;
     let artistsToGuess = [];
     let playing = false;
+    let playableTracks = [];
     //let hasBeenSkipped = false;
-    let room = {name, turns, turn, playlistCode, playlistName, currentSongTitle, currentArtists, titleGuessed, artistsToGuess, playing}
+    let room = {name, turns, turn, playlistCode, playlistName, currentSongTitle, currentArtists, titleGuessed, artistsToGuess, playing, playableTracks}
     rooms.push(room);
 }
 
