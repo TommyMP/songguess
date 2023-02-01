@@ -1,0 +1,21 @@
+:root{
+    --light-color: rgb(248, 182, 1);
+    --dark-color: rgb(0, 0, 0);
+}
+
+ody {
+    background-color: white;
+}
+
+.div-info-light, .div-input-light{
+    background: var(--light-color);
+}
+
+.div-info-dark, .div-input-dark{
+    background: var(--dark-color);
+}
+
+.dark-theme {
+    background-color: black;
+    color: white;
+}
