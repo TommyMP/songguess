@@ -2,7 +2,7 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
-const playlistName = document.getElementById('playlist-name');
+const playlistName = document.querySelector('.title-playlist');
 const roundsN = document.getElementById('rounds-display');
 const roundN = document.getElementById('round-display');
 
@@ -132,13 +132,14 @@ function outputRoomName(room) {
 
 // Caricamento lista utenti nel DOM
 function outputUsers(users) {
+    console.log(users);
     userList.innerHTML = `
     <tbody>
         ${users.map((user,index) => `
             <tr>
                 <th scope="row">${index+1}</th>
-                <td colspan="3">${user.username}</td>
-                <td>${user.points}</td>
+                <td colspan="3" class="fw-light">${user.username}</td>
+                <td class="fw-bolder">${user.points}</td>
             </tr>`
             ).join('')}
     </tbody>`
@@ -166,4 +167,5 @@ function playSound(url) {
 function stopSound() {
     a.pause();
     a.currentTime = 0;
+    
 }

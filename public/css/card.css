@@ -17,8 +17,6 @@
 .cardimg {
     width: 75%;
     margin-top: 1em;
-    margin-left: 2em;
-    margin-right: 3em;
 }
 
 .cardinfo {
@@ -63,6 +61,7 @@
     width: 25%;
     float: inline-end;
     margin-top: 1em;
+    margin-right: 1em;
 }
 
 .cardinfo-playlist{
@@ -76,6 +75,7 @@
 
 .title-playlist {
     font-family: 'Lexend Deca', sans-serif;
+    margin-top: -5px;
     font-weight: 500;
     font-size: 1em;
     line-height: 1em;

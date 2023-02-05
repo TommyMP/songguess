@@ -150,7 +150,7 @@ async function executeCommand(room, command, args) {
                 getRoomByName(room).playlistName = data.body.name;
                 let total = data.body.tracks.total;
 
-                songs = await getAllSongs('3Aue23uuMfhzHKqEnSQpcx', total);
+                songs = await getAllSongs(getRoomByName(room).playlistCode, total);
 
                 getRoomByName(room).playableTracks = songs.filter(t => t.track.preview_url != null);
                 io.to(room).emit('message', formatMessage(botName, `Playlist "${data.body.name}" has been loaded, the playlist contains ${songs.length} tracks, but only ${getRoomByName(room).playableTracks.length} of those can be used in the game, make sure you don't set a number of rounds higher than that.`));
