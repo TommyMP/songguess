@@ -51,16 +51,6 @@ io.on('connection', socket => {
         const user = userJoin(socket.id, username, room, 0.0);
         socket.join(user.room);
 
-        // Invia il benvenuto all'utente che si è connesso
-        socket.emit('message', formatMessage(botName, 'Welcome to GuessTheSong!'));
-
-        // Comunica a tutti tranne che all'utente che si è connesso
-        socket.broadcast
-            .to(user.room)
-            .emit(
-                'message',
-                formatMessage(botName, `${user.username} has joined the chat.`)
-            );
 
         // Info stanza
         io.to(user.room).emit('roomUsers', {
@@ -74,7 +64,7 @@ io.on('connection', socket => {
         const user = getCurrentUser(socket.id);
         roomInfo = getRoomByName(user.room);
 
-        io.to(user.room).emit('message', formatMessage(user.username, msg));
+        //io.to(user.room).emit('message', formatMessage(user.username, msg));
 
         // controlli sul tentativo di indovinare
         if (msg.toLowerCase().includes(roomInfo.currentSongTitle.toLowerCase()) && roomInfo.titleGuessed == 0) {
@@ -126,7 +116,7 @@ io.on('connection', socket => {
             if (getRoomUsers(user.room).length == 0) {
                 removeRoom(user.room);
             }
-            io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`)); // Invia a tutti
+           
 
             // Info stanza
             io.to(user.room).emit('roomUsers', {
