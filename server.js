@@ -134,18 +134,18 @@ server.listen(PORT, () => console.log("Server running on port " + PORT));
 async function executeCommand(room, command, args) {
     switch (command) {
         case 'playlist':
-            getRoomByName(room).playlistCode = args[0].replace('https://open.spotify.com/playlist/', '').split('?')[0];
-
+            getRoomByName(room).playlistCode = args[0].replace('https://open.spotify.com/playlist/', '').split('?')[0]; 
+            
             spotifyApi.getPlaylist(getRoomByName(room).playlistCode).then(async function (data) {
                 getRoomByName(room).playlistName = data.body.name;
                 let total = data.body.tracks.total;
-
+                getRoomByName(room).playlistImage = data.body.images[0].url;
                 songs = await getAllSongs(getRoomByName(room).playlistCode, total);
 
                 getRoomByName(room).playableTracks = songs.filter(t => t.track.preview_url != null);
                 io.to(room).emit('message', formatMessage(botName, `Playlist "${data.body.name}" has been loaded, the playlist contains ${songs.length} tracks, but only ${getRoomByName(room).playableTracks.length} of those can be used in the game, make sure you don't set a number of rounds higher than that.`));
 
-                io.to(room).emit('playlist', data.body.name);
+                io.to(room).emit('playlist', {name: data.body.name, image: data.body.images[0].url});
                 //io.to(room).emit('songpreview', data.body.tracks.items[Math.floor(Math.random()*data.body.tracks.items.length)].track.preview_url);
             }, function (err) { console.log(err) });
             //io.to(user.room).emit('playlist', args)

@@ -5,8 +5,13 @@ const userList = document.getElementById('users');
 const playlistName = document.querySelector('.title-playlist');
 const roundsN = document.getElementById('rounds-display');
 const roundN = document.getElementById('round-display');
+const playlistImage = document.getElementById('playlistImage');
+const prog = document.getElementById('prog');
+const secs = document.getElementById('seconds');
 
 let a;
+let tick = 0;
+let tickFunc;
 
 // get username e stanza dall'url
 const { username, room } = Qs.parse(location.search, {
@@ -26,8 +31,8 @@ socket.on('roomUsers', ({room, users}) => {
 });
 
 // Nome playlist
-socket.on('playlist', message => {
-    outputPlaylist(message);
+socket.on('playlist', ({name, image}) => {
+    outputPlaylist(name,image);
 });
 
 // Audio
@@ -154,18 +159,36 @@ function outputTurns(turns) {
     roundsN.innerText = turns;
 }
 
-function outputPlaylist(name) {
+function outputPlaylist(name, image) {
     playlistName.innerHTML = name;
+    playlistImage.setAttribute('src', image);
 }
 
 function playSound(url) {
     console.log(url);
     a = new Audio(url);
     a.play();
+    tick = 0;
+    prog.value = tick;
+    seconds.innerHTML='0:00';
+    tickFunc = setInterval(tickProgress, 10)
 }
 
 function stopSound() {
     a.pause();
-    a.currentTime = 0;
+    a.currentTime = 0;   
+}
+
+function tickProgress() {
+    tick+=10;
+    prog.value = tick;
     
+    if(tick%1000==0) {
+        seconds.innerHTML = "0:"+ "0".repeat(2 - (tick/1000).toString().length) + (tick/1000).toString();
+    }
+
+    if(tick == 30000)
+    {
+        clearInterval(tickFunc);
+    }
 }

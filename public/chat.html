@@ -84,7 +84,7 @@
         <div class="col-5">
             <div class="row d-flex justify-content-start">
                 <div class="card-playlist" id="idPlaylist">
-                    <img src="images/question-mark.jpg" alt="" class="cardimg-playlist">
+                    <img id="playlistImage" src="images/question-mark.jpg" alt="" class="cardimg-playlist">
                     <div class="cardinfo-playlist">
                         <p class="info-playlist fw-light">Playing From:</p>
                         <p class="title-playlist fw-bolder">Nome Playlist</p>
@@ -106,8 +106,8 @@
                         <p class="title fw-bolder">Title</p>
                         <p class="artist">???,???,...</p>
                         <div class="d-flex justify-content-between">
-                            <p style="margin-top: 0.75em; margin-right: 0.5em;">0:00</p>
-                            <progress class="w-75" value="50" max="100"></progress>
+                            <p id="seconds" style="margin-top: 0.75em; margin-right: 0.5em;">0:00</p>
+                            <progress id="prog" class="w-75" value="0" max="30000"></progress>
                             <p style="margin-top: 0.75em; margin-left: 0.5em;">0:30</p>
                         </div>
                     </div>
