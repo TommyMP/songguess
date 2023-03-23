@@ -8,6 +8,11 @@ const roundN = document.getElementById('round-display');
 const playlistImage = document.getElementById('playlistImage');
 const prog = document.getElementById('prog');
 const secs = document.getElementById('seconds');
+const eimage = document.getElementById('songimage');
+const etitle = document.getElementById('songtitle');
+const eartists = document.getElementById('songartists');
+
+let artistsNumber;
 
 let a;
 let tick = 0;
@@ -40,7 +45,7 @@ socket.on('songpreview', url => {
     playSound(url);
 });
 
-socket.on('stopSong', () => stopSound());
+socket.on('stopSong', ({title,artists,image}) => stopSound(title,artists,image));
 
 // Numero turni
 socket.on('turns', turni => {
@@ -50,6 +55,23 @@ socket.on('turns', turni => {
 // turn
 socket.on('turn', turno => {
     outputTurn(turno);
+});
+
+//informazioni canzone
+socket.on('title', title => {
+    outputTitle(title);
+});
+
+socket.on('artists', ({guessed,allartists}) => {
+    outputArtists(guessed,allartists);
+});
+
+socket.on('artistsN', num => {
+    outputNumber(num);
+})
+
+socket.on('songimage', songimage => {
+    outputImage(songimage);
 });
 
 
@@ -164,28 +186,79 @@ function outputPlaylist(name, image) {
     playlistImage.setAttribute('src', image);
 }
 
+function outputTitle(title) {
+    etitle.innerHTML = title;
+}
+
+function outputArtists(guessed,allartists) {
+    guessedStr = "";
+
+    for(i = 0; i<allartists.length; i++)
+    {
+        if(guessed.includes(allartists[i]))
+        {
+            guessedStr += allartists[i] + ", ";
+        }
+        else 
+            guessedStr += "???, ";
+    }
+
+    guessedStr = guessedStr.substring(0,guessedStr.length-2);
+
+    eartists.innerHTML = guessedStr;
+}
+
+function outputImage(image) {
+    eimage.setAttribute('src', image);
+}
+
+function outputNumber(num) {
+    artistsNumber = num;
+    art = "";
+    for(i = 0; i<num-1; i++) {
+        art+="???, ";
+    }
+    art+="???";
+    eartists.innerHTML = art;
+}
+
 function playSound(url) {
+    ResetInfo();
     console.log(url);
     a = new Audio(url);
     a.play();
     tick = 0;
     prog.value = tick;
     seconds.innerHTML='0:00';
-    tickFunc = setInterval(tickProgress, 10)
+    tickFunc = setInterval(tickProgress, 1000);
 }
 
-function stopSound() {
+function stopSound(title,artists,image) {
     a.pause();
     a.currentTime = 0;   
+    clearInterval(tickFunc);
+    tick = 0;
+    prog.value=tick;
+    seconds.innerHTML='0:00';
+    DisplayAll(title,artists,image);
+}
+
+function DisplayAll(title,artists,image) {
+    outputTitle(title);
+    outputArtists(artists,artists);
+    outputImage(image);
+}
+
+function ResetInfo() {
+    outputTitle("???");
+    outputImage("images/question-mark.jpg");
 }
 
 function tickProgress() {
-    tick+=10;
+    tick+=1000;
     prog.value = tick;
     
-    if(tick%1000==0) {
-        seconds.innerHTML = "0:"+ "0".repeat(2 - (tick/1000).toString().length) + (tick/1000).toString();
-    }
+    seconds.innerHTML = "0:"+ "0".repeat(2 - (tick/1000).toString().length) + (tick/1000).toString();
 
     if(tick == 30000)
     {

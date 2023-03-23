@@ -50,7 +50,7 @@
 /*-----------------------------------------------------*/
 
 .card-playlist {
-    border-radius: 2em;
+    border-radius: 20px;
     background-color: var(--light-color);
     width: 25em;
     height: 7em;
@@ -62,8 +62,7 @@
     width: 25%;
     float: inline-end;
     margin-top: 0.5em;
-    margin-right: 2em;
-    border-radius: 1em;
+    border-radius: 20px;
 }
 
 .cardinfo-playlist{

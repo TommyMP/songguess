@@ -69,7 +69,7 @@ io.on('connection', socket => {
         // controlli sul tentativo di indovinare
         if (msg.toLowerCase().includes(roomInfo.currentSongTitle.toLowerCase()) && roomInfo.titleGuessed == 0) {
             roomInfo.titleGuessed = 1;
-            io.to(user.room).emit('messageX', formatMessage(botName, `Title guessed by ${user.username}.`));
+            io.to(user.room).emit('title', roomInfo.currentSongTitle);
             user.points += 1;
 
             if (roomInfo.artistsToGuess.length == 0) {
@@ -80,14 +80,16 @@ io.on('connection', socket => {
         if (roomInfo.artistsToGuess.some(a => msg.toLowerCase().includes(a))) {
             lengthBefore = roomInfo.artistsToGuess.length;
 
-            console.log(roomInfo.artistsToGuess);
-            console.log(lengthBefore);
-
+            
             roomInfo.artistsToGuess = roomInfo.artistsToGuess.filter(g => !msg.toLowerCase().includes(g));
             lengthAfter = roomInfo.artistsToGuess.length;
 
+
+
+            let guessedArr = roomInfo.currentSongArtists.filter(x => !roomInfo.artistsToGuess.includes(x.toLowerCase()));
+
             artistsGuessed = lengthBefore - lengthAfter;
-            io.to(user.room).emit('messageX', formatMessage(botName, `${artistsGuessed} Artist(s) guessed by ${user.username}. ${lengthAfter} artist(s) remaining.`));
+            io.to(user.room).emit('artists', {guessed: guessedArr, allartists: roomInfo.currentSongArtists});
             user.points += artistsGuessed;
 
             if (roomInfo.artistsToGuess.length == 0 && roomInfo.titleGuessed == 1) {
@@ -187,7 +189,10 @@ function refreshToken() {
     setTimeout(refreshToken, 3000000);
 }
 
+let imageTimeout;
 function playSong(roomName) {
+    
+
     let room = getRoomByName(roomName);
 
     let trackIndex = Math.floor(Math.random() * room.playableTracks.length);
@@ -206,17 +211,23 @@ function playSong(roomName) {
     room.titleGuessed = 0;
     room.artistsToGuess = artistsToGuess;
     room.hasBeenSkipped = false;
+    room.songImage = track.album.images[0].url;
+    io.to(roomName).emit('artistsN', artists.length);
+
+    imageTimeout = setTimeout(() => {io.to(roomName).emit('songimage', room.songImage)}, 15000)
+
     const waitingTurn = room.turn;
     io.to(roomName).emit('songpreview', track.preview_url);
     setTimeout(() => { nextSong(roomName, waitingTurn) }, 30000);
 }
 
 function nextSong(roomName, callersTurn) {
+    clearTimeout(imageTimeout);
     let roomInfo = getRoomByName(roomName);
     console.log(roomInfo.turn);
     console.log(callersTurn);
     if (roomInfo.turn == callersTurn && roomInfo.playing) {
-        io.to(roomName).emit('stopSong');
+        io.to(roomName).emit('stopSong', {title: roomInfo.currentSongTitle, artists: roomInfo.currentSongArtists, image: roomInfo.songImage});
         roomInfo.turn += 1;
 
         io.to(roomName).emit('roomUsers', {
