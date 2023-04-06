@@ -256,6 +256,6 @@ async function listaTracceParziale(idPlaylist, offset) {
 
 // RegEx per rimuovere dai titoli eventuali parti aggiuntive come: "feat. X", "Radio Edit", "Y Remix", "2011 Remastered", "(Extended Version), ecc"
 function filtraTitolo(titolo) {
-    titolo = titolo.replace(/\([^\)].+?\)/g, '').replace(/\[[^\]].+?\]/g, '').replace(/-.*((with)|(feat)).*/gi).replace(/-.*((remix)|(rmx)).*/gi).replace(/-.*((radio)|(edit)).*/gi,'').replace(/-.*(remaster).*/gi, '').replace(/[ \t]+$/g, '');
+    titolo = titolo.replace(/\([^\)].+?\)/g, '').replace(/\[[^\]].+?\]/g, '').replace(/-.*((with)|(feat)).*/gi,'').replace(/-.*((remix)|(rmx)).*/gi,'').replace(/-.*((radio)|(edit)).*/gi,'').replace(/-.*(remaster).*/gi, '').replace(/[ \t]+$/g, '');
     return titolo;
 }
