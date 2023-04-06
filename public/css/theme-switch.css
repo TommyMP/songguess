@@ -1,0 +1,12 @@
+:root{
+    --light-color: rgb(248, 182, 1);
+    --dark-color: rgb(39, 40, 58);
+}
+
+body {
+    background-color: white;
+}
+
+body.info-dark{
+    background-color: var(--dark-color);
+}

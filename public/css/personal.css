@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;500;700&display=swap');
+
+:root {
+    --light-color: rgb(248, 182, 1);
+    --dark-color: rgb(39, 40, 58);
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+
+/*-----------------------------------------------------*/
+
+.card-playlist {
+    position: fixed;
+    top: 2%;
+    left: 1%;
+    width: 450px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.2em;
+}
+
+.card-playlist img {
+    height: 100px;
+    width: 100px;
+}
+
+.playlist-info {
+    margin-left: 3%;
+}
+
+.desc {
+    font-weight: 100;
+}
+
+.title {
+    margin-top: -5%;
+    font-weight: 600;
+}
+
+.main-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-card img {
+    width: 80%;
+    height: 80%;
+}
+
+.main-card .songtitle {
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 900;
+    font-size: 1.4em;
+    margin-top: 4%;
+    text-align: center;
+}
+
+.main-card .songartists {
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-top: -5%;
+    text-align: center;
+    color: rgb(114, 114, 114);
+}
+
+.progcont {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#seconds {
+    width: 10%;
+    margin-bottom: 0;
+}
+
+#prog {
+    width: 60%;
+    accent-color: var(--light-color);
+}
+
+#total {
+    width: 10%;
+    margin-bottom: 0;
+}
+
+#msg:focus {
+    border-color: var(--light-color);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-color);
+}
+
+.rounds p {
+    display: inline;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.rounds {
+    margin-bottom: 1.5%;
+}
+
+/*-----------------------------------------------------*/
+
+#idPlaylist.dark-theme{
+    color: rgb(240, 240, 240);
+}
+
+#idCard.dark-theme{
+    color: rgb(240, 240, 240);
+}
+
+#idCard.dark-theme .songartists {
+    color: rgb(190, 190, 190);
+}

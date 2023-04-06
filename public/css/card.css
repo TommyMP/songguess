@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;500;700&display=swap');
+
+:root {
+    --light-color: rgb(248, 182, 1);
+    --dark-color: rgb(39, 40, 58);
+}
+
+
+.card {
+    border-radius: 2em;
+    background-color: var(--light-color);
+    width: 20em;
+    height: 23em;
+    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.568);
+}
+
+.cardimg {
+    width: 75%;
+    margin-top: 1em;
+    border-radius: 2em;
+}
+
+.cardinfo {
+    height: 90%;
+    padding: 10%;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    line-height: 1em;
+    overflow-wrap: normal;
+}
+
+.artist {
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1em;
+    margin: 13%;
+    margin-top: 4%;
+    margin-bottom: 0;
+    overflow-wrap: normal;
+    color: rgb(118, 129, 153);
+}
+
+/*-----------------------------------------------------*/
+
+.card-playlist {
+    border-radius: 20px;
+    background-color: var(--light-color);
+    width: 25em;
+    height: 7em;
+    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.568);
+    margin: 3em;
+}
+
+.cardimg-playlist{
+    width: 25%;
+    float: inline-end;
+    margin-top: 0.5em;
+    border-radius: 20px;
+}
+
+.cardinfo-playlist{
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.info-playlist {
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+.title-playlist {
+    font-family: 'Lexend Deca', sans-serif;
+    margin-top: -5px;
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1em;
+    overflow-wrap: normal;
+}
+
+/*-----------------------------------------------------*/
+
+#idPlaylist.dark-theme{
+    background-color: white;
+}
+
+#idCard.dark-theme{
+    background-color: white;
+}
