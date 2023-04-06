@@ -110,6 +110,10 @@ html,body{
     margin-bottom: 1.5%;
 }
 
+.classifica {
+    max-height: 300px;
+}
+
 /*-----------------------------------------------------*/
 
 #idPlaylist.dark-theme{
