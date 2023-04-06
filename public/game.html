@@ -21,20 +21,73 @@
 <body id="info-light" class="container h-100 w-100 d-flex">
 
     
-    <div class="d-none d-md-flex card-playlist">
-        <img src="./images/question-mark.jpg"/>
+    <div id="idPlaylist" class="d-none d-md-flex card-playlist">
+        <img id="playlistImage" src="./images/question-mark.jpg"/>
         <div class="playlist-info">
             <p class="desc">Playing from:</p>
-            <p class="title">spotify playlist title long enough to wrap</p>
+            <p id="title-playlist" class="title">spotify playlist title long enough to wrap</p>
         </div>
     </div>
 
     <div class="col-12 d-flex justify-content-center align-items-center">
-        <div class="bg-black col-10 col-md-6 col-lg-6 col-xl-4">
-            <div class="main-card"></div>
+        <div class="col-10 col-md-6 col-lg-6 col-xl-3">
+
+
+            <div id="idCard" class="main-card">
+                <div class="rounds">
+                    <p id="round-display">0</p><p>/</p><p id="rounds-display">100</p>
+                </div>   
+                <img id="songimage" src="./images/question-mark.jpg"/>
+                <p id="songtitle" class="songtitle">Titolo Estremamente Lungo che porta al wrap</p>
+                <p id="songartists" class="songartists">Artista1, Artista2, ArtistaMoltoLungo, Artista3, Artista 4, Artista 5, Artista 6</p>
+                <div class="progcont">
+                    <p id="seconds">0:00</p>
+                    <progress id="prog" value="0" max="30000"></progress>
+                    <p id="total">0:30</p>
+                </div>
+            </div>
+
+
+            <div class="messagebox">
+                <form class="input-group input-group-lg mb-3 mt-4" id="chat-form">
+                    <input id="msg" type="text" class="form-control" placeholder="Your Guess..." required
+                    autocomplete="off" aria-label="Your Guess..." aria-describedby="button-send">
+                    <button class="btn btn-warning" type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+
+            <div id="idTable" class="classifica">
+                <table id="users" class="table">
+                    <tbody>
+                      <tr>
+                        <th class="col-1" scope="row">1</th>
+                        <td class="col-9">Nickname lunghissimo</td>
+                        <td>103434</td>
+                      </tr>
+                      <tr>
+                        <th class="col-1" scope="row">2</th>
+                        <td class="col-9">Utente</td>
+                        <td>10</td>
+                      </tr>
+                      <tr>
+                        <th class="col-1" scope="row">3</th>
+                        <td class="col-9">Pippo</td>
+                        <td>2</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
     </div>
 
+    <div class="col-5">
+        <div class="row fixed-top justify-content-end p-5 pt-3">
+            <button id="theme-switch-btn" class="btn h-50" style="width: 50px;">
+                <i id="icon" class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
 
     <div id="room-name" class="d-none"></div>
     <div class="chat-messages d-none"></div>
