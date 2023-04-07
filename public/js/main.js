@@ -11,6 +11,31 @@ const eimage = document.getElementById('songimage');
 const etitle = document.getElementById('songtitle');
 const eartists = document.getElementById('songartists');
 
+const _lobbyCode = document.getElementById('lobbyCode');
+const _playlistLink = document.getElementById('playlistLink');
+const _validatePlaylist = document.getElementById('validatePlaylist');
+const _playlistImage = document.getElementById('playlistImageS');
+const _playlistTitle = document.getElementById('title-playlistS');
+const _playableTracksN = document.getElementById('playableTracksN');
+const _totalTracksN = document.getElementById('totalTracksN');
+const _roundsNumber = document.getElementById('roundsNumber');
+const _startGame = document.getElementById('startGame');
+const _iconS = document.getElementById('iconS');
+const _settings = document.getElementById('settings');
+const _settingsDiv = document.getElementById('settingsDiv');
+
+_validatePlaylist.addEventListener("click", () => {
+    socket.emit('chatCommand', {comando:'playlist', args:[_playlistLink.value]});
+});
+
+
+_startGame.addEventListener("click", () => {
+    socket.emit('chatCommand', {comando:'turns', args:[_roundsNumber.value]});
+    socket.emit('chatCommand', {comando:'startGame', args:[]});
+    _settingsDiv.hidden = true;
+})
+
+
 let artistsNumber;
 
 let a;
@@ -29,14 +54,19 @@ const socket = io();
 socket.emit('joinRoom', {username, stanza});
 
 // get stanza e utenti
-socket.on('roomUsers', ({stanza, users}) => {
+socket.on('roomUsers', ({stanza, utenti}) => {
     outputRoomName(stanza);
-    outputUsers(users);
+    outputUsers(utenti);
 });
 
+socket.on('admin', () => {
+    _settings.hidden = false;
+})
+
 // Nome playlist
-socket.on('playlist', ({name, image}) => {
-    outputPlaylist(name,image);
+socket.on('playlist', ({name, image, totalTracks, playableTracks}) => {
+    outputPlaylist(name,image, totalTracks, playableTracks);
+    _startGame.disabled = false;
 });
 
 // Audio
@@ -73,6 +103,10 @@ socket.on('songimage', songimage => {
     outputImage(songimage);
 });
 
+socket.on('gameOver', () => {
+    _settingsDiv.hidden = false;
+})
+
 
 // Invio (submit) del messaggio
 chatForm.addEventListener('submit', (e)=> {
@@ -103,7 +137,7 @@ chatForm.addEventListener('submit', (e)=> {
 
 // Caricamento nome stanza nel DOM
 function outputRoomName(room) {
-    roomName.innerText = room;
+    _lobbyCode.innerText = `Room Name: ${room}`;
 }
 
 // Caricamento lista utenti nel DOM
@@ -130,9 +164,17 @@ function outputTurns(turns) {
     roundsN.innerText = turns;
 }
 
-function outputPlaylist(name, image) {
+function outputPlaylist(name, image, totalTracks, playableTracks) {
     playlistName.innerHTML = name;
     playlistImage.setAttribute('src', image);
+
+    _playlistTitle.innerHTML = name;
+    _playlistImage.setAttribute('src', image);
+
+    _totalTracksN.innerHTML = totalTracks;
+    _playableTracksN.innerHTML = playableTracks;
+
+    _roundsNumber.max = playableTracks;
 }
 
 function outputTitle(title) {

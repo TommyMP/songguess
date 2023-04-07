@@ -19,7 +19,7 @@ function eliminaStanza(nome) {
 }
 
 function creaStanza(nome) {
-    let totaleTurni = 0;
+    let totaleTurni = 10;
     let turno = 1;
     let idPlaylist = "";
     let nomePlaylist = "";

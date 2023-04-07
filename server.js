@@ -37,9 +37,13 @@ io.on('connection', socket => {
 
         // Invio alla stanza la lista degli utenti
         io.to(utente.stanza).emit('roomUsers', {
-            room: utente.stanza,
-            users: getListaUtenti(utente.stanza)
+            stanza: utente.stanza,
+            utenti: getListaUtenti(utente.stanza)
         });
+
+        if(utente.admin) {
+            socket.emit('admin');
+        }
     });
 
     // Ascolto di messaggi
@@ -103,8 +107,8 @@ io.on('connection', socket => {
 
             // Info stanza
             io.to(utente.stanza).emit('roomUsers', {
-                room: utente.stanza,
-                utente: getListaUtenti(utente.stanza)
+                stanza: utente.stanza,
+                utenti: getListaUtenti(utente.stanza)
             });
         }
     });
@@ -132,7 +136,7 @@ async function eseguiComando(stanza, comando, args) {
 
                 getStanza(stanza).tracceRiproducibili = traccePlaylist.filter(t => t.track.preview_url != null);
 
-                io.to(stanza).emit('playlist', {name: data.body.name, image: data.body.images[0].url});
+                io.to(stanza).emit('playlist', {name: data.body.name, image: data.body.images[0].url, totalTracks: totaleTracce, playableTracks: getStanza(stanza).tracceRiproducibili.length});
             }, function (err) { console.log(err) });
             break;
         case 'turns':
@@ -215,13 +219,14 @@ function prossimaTraccia(nomeStanza, turnoChiamata) {
         clearTimeout(timeoutImmagine);
         
         io.to(nomeStanza).emit('roomUsers', {
-            room: nomeStanza,
-            users: getListaUtenti(nomeStanza)
+            stanza: nomeStanza,
+            utenti: getListaUtenti(nomeStanza)
         });
 
 
         if (stanza.turno - 1 == stanza.totaleTurni) {
             stanza.riproduzioneInCorso = false; //possibile problema
+            io.to(nomeStanza).emit('gameOver');
         }
         else {
             io.to(nomeStanza).emit('turn', stanza.turno);

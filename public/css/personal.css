@@ -25,6 +25,15 @@ html,body{
     font-size: 1.2em;
 }
 
+.card-playlistS {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 1.2em;
+}
+
 .card-playlist img {
     height: 100px;
     width: 100px;
@@ -32,6 +41,10 @@ html,body{
 
 .playlist-info {
     margin-left: 3%;
+}
+
+.card-playlistS .playlist-info {
+    margin-left: 1%;
 }
 
 .desc {
@@ -94,9 +107,9 @@ html,body{
     margin-bottom: 0;
 }
 
-#msg:focus {
-    border-color: var(--light-color);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-color);
+input:focus {
+    border-color: var(--light-color) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-color) !important;
 }
 
 .rounds p {
@@ -112,6 +125,19 @@ html,body{
 
 .classifica {
     max-height: 300px;
+}
+
+.modal-dark {
+    background-color: var(--dark-color);
+    color:rgb(240, 240, 240);
+}
+
+.playableInfo p {
+    display: inline;
+}
+
+.playableInfo {
+    margin-bottom: 1%;
 }
 
 /*-----------------------------------------------------*/
