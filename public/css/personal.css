@@ -5,7 +5,8 @@
     --dark-color: rgb(39, 40, 58);
 }
 
-html,body{
+html,
+body {
     height: 100%;
     width: 100%;
 }
@@ -112,6 +113,68 @@ input:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--light-color) !important;
 }
 
+input[type=range]:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    padding: 0;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    background: var(--light-color);
+    cursor: pointer;
+    transform: scale(180%);
+    border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb:active {
+    background-color: rgb(255, 207, 84);
+}
+
+.slider::-moz-range-thumb {
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    background: var(--light-color);
+    cursor: pointer;
+    border: none;
+    transform: scale(180%);
+    border-radius: 10px;
+}
+
+.slider::-moz-range-progress {
+    background-color: var(--light-color);
+    height: 100%;
+    border-radius: 10px;
+
+}
+
+.slider::-moz-range-thumb:active {
+    background-color: rgb(255, 207, 84);
+}
+
 .rounds p {
     display: inline;
     font-family: 'Lexend Deca', sans-serif;
@@ -129,7 +192,7 @@ input:focus {
 
 .modal-dark {
     background-color: var(--dark-color);
-    color:rgb(240, 240, 240);
+    color: rgb(240, 240, 240);
 }
 
 .playableInfo p {
@@ -142,11 +205,11 @@ input:focus {
 
 /*-----------------------------------------------------*/
 
-#idPlaylist.dark-theme{
+#idPlaylist.dark-theme {
     color: rgb(240, 240, 240);
 }
 
-#idCard.dark-theme{
+#idCard.dark-theme {
     color: rgb(240, 240, 240);
 }
 

@@ -1,6 +1,7 @@
 const themeSwitchBtn = document.getElementById("theme-switch-btn");
 const icon = document.getElementById("icon");
 const iconS = document.getElementById("iconS");
+const vol = document.getElementById("volumeIcon");
 const info = document.getElementById("info-light");
 const modalcontent = document.getElementById("modal-theme");
 const xbtn = document.getElementById("xbtn");
@@ -26,6 +27,7 @@ themeSwitchBtn.addEventListener("click", function() {
     card.classList.toggle("dark-theme");
     icon.classList.toggle("text-light");
     iconS.classList.toggle("text-light");
+    vol.classList.toggle("text-light");
     divTable.classList.toggle("text-light");
     table.classList.toggle("text-light");
     modalcontent.classList.toggle("modal-dark");

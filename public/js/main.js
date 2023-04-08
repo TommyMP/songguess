@@ -11,6 +11,9 @@ const eimage = document.getElementById('songimage');
 const etitle = document.getElementById('songtitle');
 const eartists = document.getElementById('songartists');
 
+const volume = document.getElementById('volume');
+const volumeIcon = document.getElementById('volumeIcon');
+
 const _lobbyCode = document.getElementById('lobbyCode');
 const _playlistLink = document.getElementById('playlistLink');
 const _validatePlaylist = document.getElementById('validatePlaylist');
@@ -24,6 +27,7 @@ const _iconS = document.getElementById('iconS');
 const _settings = document.getElementById('settings');
 const _settingsDiv = document.getElementById('settingsDiv');
 
+
 _validatePlaylist.addEventListener("click", () => {
     socket.emit('chatCommand', {comando:'playlist', args:[_playlistLink.value]});
 });
@@ -35,6 +39,17 @@ _startGame.addEventListener("click", () => {
     _settingsDiv.hidden = true;
 })
 
+volume.addEventListener("change", () => {
+    if(volume.value == 0) {
+        volumeIcon.classList.remove('fa-volume-up');
+        volumeIcon.classList.add('fa-volume-mute');
+    } else if(volumeIcon.classList.contains('fa-volume-mute')) {
+        volumeIcon.classList.add('fa-volume-up');
+        volumeIcon.classList.remove('fa-volume-mute');
+    }
+    a.volume = volume.value/100;
+    
+})
 
 let artistsNumber;
 
@@ -217,6 +232,7 @@ function playSound(url) {
     ResetInfo();
     console.log(url);
     a = new Audio(url);
+    a.volume = volume.value/100;
     a.play();
     tick = 0;
     prog.value = tick;
