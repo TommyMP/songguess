@@ -58,10 +58,17 @@ let tick = 0;
 let tickFunc;
 
 // get username e stanza dall'url
-const { username, stanza } = Qs.parse(location.search, {
+const { username, stanza, tema } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 });
 
+if(Number(tema) == -1) {
+    document.getElementById('theme-switch-btn').click();
+}
+
+// potrebbe causare problemi (?)
+// pulisce l'url rimuovendo tutti i parametri ed evitando che venga salvata la pagina di gioco in cronologia
+window.history.replaceState({}, document.title, "/");
 
 const socket = io();
 
