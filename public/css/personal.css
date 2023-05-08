@@ -227,6 +227,21 @@ input[type=range]:focus {
 
 /*----------------------------------------------*/
 
+/* .info {
+    width: 80%;
+} */
+
+
+.info p {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+#loginpage {
+    font-family: 'Lexend Deca', sans-serif;
+}
+
 .formcontainer {
     border-bottom: 1px solid lightgray;
     padding: 20px;
@@ -238,6 +253,7 @@ input[type=range]:focus {
     text-align: center;
     width: 100%;
     font-size: 4em;
+    font-weight: 800;
 }
 
 .pagesubtitle {
@@ -245,17 +261,20 @@ input[type=range]:focus {
     width: 100%;
     color: rgb(114, 114, 114);
     font-size: 1.5em;
+    font-weight: 600;
 }
 
 .logintitle {
     margin-top: 3%;
     text-align: center;
     width: 100%;
+    font-weight: 600;
+    font-size: 2em;
 }
 
 .loginform label {
     font-family: 'Lexend Deca', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 1.5em;
     text-align: center;
     width: 100%;
