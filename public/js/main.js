@@ -265,7 +265,7 @@ function DisplayAll(title,artists,image) {
 
 function ResetInfo() {
     outputTitle("???");
-    outputImage("images/question-mark.jpg");
+    outputImage("images/question-mark.png");
 }
 
 function tickProgress() {

@@ -203,6 +203,10 @@ function riproduciTraccia(nomeStanza) {
 
     const turnoInAttesa = stanza.turno;
     io.to(nomeStanza).emit('songpreview', traccia.preview_url);
+
+    console.log(stanza.titoloTracciaCorrente);
+    console.log(stanza.listaArtistiCorrenti);
+
     setTimeout(() => { prossimaTraccia(nomeStanza, turnoInAttesa) }, 30000);
 }
 
