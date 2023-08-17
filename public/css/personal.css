@@ -295,3 +295,11 @@ input[type=range]:focus {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+a {
+    text-align: center;
+}
+
+a:link,a:active, a:visited, a:hover, a:any-link {
+    color: var(--light-color) !important;
+}
