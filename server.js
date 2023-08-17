@@ -98,7 +98,6 @@ io.on('connection', socket => {
     socket.on('disconnect', () => {
         const utente = uscitaUtente(socket.id);
 
-
         if (utente) {
             if (getListaUtenti(utente.stanza).length == 0) {
                 eliminaStanza(utente.stanza);
